@@ -33,8 +33,8 @@ jobs:
         with:
           go-version: "1.25.1"
 
-      - name: style
-        run: go fmt ./...
+      - name: Check formatting
+        run: test -z $(go fmt ./...)
     
     
         
