@@ -35,10 +35,12 @@ jobs:
 
       - name: Check formatting
         run: |
-          if [ -n "$(gofmt -l ./...)" ]; then
-            echo "The following files need gofmt formatting:"
-            gofmt -l ./...
-            echo "Run 'gofmt -w ./...' (or 'go fmt ./...') and commit the changes."
+          files="$(gofmt -l ./...)"
+          if [ -n "$files" ]; then
+            echo "gofmt found unformatted files:"
+            echo "$files"
+            echo ""
+            echo "Fix locally with: gofmt -w ./...   (or: go fmt ./...) and commit the changes."
             exit 1
           fi
     
