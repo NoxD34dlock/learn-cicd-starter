@@ -34,7 +34,13 @@ jobs:
           go-version: "1.25.1"
 
       - name: Check formatting
-        run: test -z $(go fmt ./...)
+        run: |
+          if [ -n "$(gofmt -l ./...)" ]; then
+            echo "The following files need gofmt formatting:"
+            gofmt -l ./...
+            echo "Run 'gofmt -w ./...' (or 'go fmt ./...') and commit the changes."
+            exit 1
+          fi
     
     
         
